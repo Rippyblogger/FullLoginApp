@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<style>
+		div {
+			margin: 2rem;
+		}
+	</style>
+	<body>
+		<h2>Form Testing</h2>
+
+		<form id="signupform">
+			<div>
+				<label for="firstname"> First Name </label>
+				<input type="text" name="firstname" id="firstname" />
+			</div>
+
+			<div>
+				<label for="lastname"> Last Name </label>
+				<input type="text" name="lastname" id="lastname" />
+			</div>
+
+			<div>
+				<label for="email"> Email </label>
+				<input type="email" name="email" id="email" />
+			</div>
+
+			<div>
+				<label for="password"> Password </label>
+				<input type="password" name="password" id="password" />
+			</div>
+
+			<div>
+				<input id="submit" style="width: 6rem" type="submit" value="SUBMIT" />
+			</div>
+		</form>
+
+		<div>
+			<a href="./login.html">LOGIN</a>
+		</div>
+
+		<script>
+			let signupForm = document.getElementById("signupform");
+
+			signupForm.addEventListener("submit", async function (event) {
+				event.preventDefault();
+				let firstname = document.getElementById("firstname").value;
+				let lastname = document.getElementById("lastname").value;
+				let email = document.getElementById("email").value;
+				let password = document.getElementById("password").value;
+				const data = { firstname, lastname, email, password };
+				
+				// Create request instance
+				const request = new Request("http://127.0.0.1:3000/api/signup", {
+					method: "POST",
+					body: JSON.stringify(data),
+					headers: {
+						"Accept": "application/json",
+						"Content-Type": "application/json",
+					},
+				});
+
+
+				console.log(request);
+				fetch(request)
+				.then((res) => res.json())
+				.then((res)=>{
+					alert("User created successfully")
+				}).catch(err=> console.log(err))
+			});
+		</script>
+	</body>
+</html>

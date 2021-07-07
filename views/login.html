@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Log in</title>
+		<link rel="shortcut icon" href="#">
+	</head>
+	<body>
+		<h2>Log In</h2>
+
+		<form id="contactform">
+			<div>
+				<label for="email">EMAIL
+                    <input type="text" name="email" id="email" />
+                </label>
+			</div>
+			<div>
+				<label for="password">PASSWORD
+					<input type="text" name="password" id="password"
+				/></label>
+			</div>
+			<div>
+				<input type="submit" name="submit" id="submit" value="SUBMIT" />
+			</div>
+		</form>
+
+
+
+
+		<script>
+			let contactForm = document.getElementById('contactform');
+
+			contactForm.addEventListener('submit', async function(event){
+				event.preventDefault()
+				const email = document.getElementById('email').value;
+				const password = document.getElementById('password').value;
+				const loginUrl = 'http://127.0.0.1:3000/api/login'
+				const data = {email, password};
+
+				const request = new Request(loginUrl, {
+					method: 'POST',
+					headers: {
+						"Authorization": "Bearer omoologo",
+						"Accept": 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body:JSON.stringify(data)
+					
+				})
+
+				fetch(request)
+				.then(res => res.json())
+				.then(res => console.log(res))
+				// .then(res => console.log(res.meta.accessToken))
+				.catch(err=> console.log(err))
+			})
+
+
+		</script>
+	</body>
+</html>
